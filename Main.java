@@ -4,7 +4,7 @@ import java.io.IOException;
 
 class WrongStudentName extends Exception { }
 class WrongStudentAge extends Exception { }
-class WrongStudentBirth extends Exception { }
+class WrongStudentDate extends Exception { }
 
 class Main {
     public static Scanner scan = new Scanner(System.in);
@@ -26,6 +26,9 @@ class Main {
             }
           catch(WrongStudentAge e) {
                 System.out.println("Błędny wiek studenta!");
+            }
+           catch(WrongStudentDate e) {
+                System.out.println("Błędna data studenta!");
             }
         }
     }
@@ -56,13 +59,19 @@ class Main {
 
         return age;
     }
+   public static String ReadDate() throws WrongStudentDate {
+        System.out.println("Podaj date urodzenia mm-dd-yyyy: ");
+        String date = scan.nextLine();
+  if(date.charAt(2) != 45 || date.charAt(5) != 45)
+            throw new WrongStudentDate();
 
-   public static void exercise1() throws IOException, WrongStudentName, WrongStudentAge {
+        return date;
+    }
+
+   public static void exercise1() throws IOException, WrongStudentName, WrongStudentAge, WrongStudentDate {
         var name = ReadName();
         var age = ReadAge();
-       scan.nextLine();
-       System.out.println("Podaj datę urodzenia DD-MM-YYY");
-       var date = scan.nextLine();
+       var date = ReadDate();
         (new Service1()).addStudent(new Student(name, age, date));
     }
 
